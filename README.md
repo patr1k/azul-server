@@ -13,6 +13,20 @@ or host a new one. Games are identified by a 6 character case-insensitive
 alpha-numeric string. The game can only be started by the host, and only when there 
 are between 2 and 4 players in the game.
 
+## How To Use
+
+The game server can be started using the command:
+
+```sh
+deno run --allow-all main.ts
+```
+
+A command-line test client is also available:
+
+```sh
+deno run --allow-all client.ts
+```
+
 ## Message Protocol
 
 All JSON messages are required to have a key named "@", which identifies the message

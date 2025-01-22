@@ -1,5 +1,3 @@
-import decoder from "./Decoder.ts";
-import encoder from "./Encoder.ts";
 import { PlayerScores, Tile } from "./Types.ts";
 
 export type MessageType = 'CreateGame' 
@@ -127,6 +125,8 @@ export function prependMsgSize(jsonBytes: Uint8Array): Uint8Array {
 }
 
 export function encodeMessage<T extends MessageType>(type: T, msg?: Partial<MessageOfType<T>>) {
+    const encoder = new TextEncoder();
+
     if (typeof msg === 'undefined') {
         return prependMsgSize(encoder.encode(JSON.stringify({'@': type})));
     }
@@ -137,6 +137,8 @@ export function encodeMessage<T extends MessageType>(type: T, msg?: Partial<Mess
 }
 
 export function decodeMessage<T extends AzulMessage>(buf: Uint8Array): T {
+    const decoder = new TextDecoder();
+
     const inMsg = decoder.decode(buf).replace(/[\0\r\n]/g, '');
     try {
         return JSON.parse(inMsg);
