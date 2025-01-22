@@ -1,6 +1,9 @@
 # Azul Game Server
 
+![Azul](https://github.com/patr1k/azul-server/blob/main/resources/azul.jpg?raw=true)
+
 This Deno application manages Azul game state, turn flow, and rules enforcement.
+It is intended to provide the game logic for an online multiplayer Azul game.
 
 ## Overview
 
@@ -47,8 +50,6 @@ will be encoded as:
 - Quit
 
 ### Misc Notes
-
-**Tile Enum**
 
 | Tile Enum   | Tile Image     |
 | ----------- | -------------- |
