@@ -56,6 +56,7 @@ async function handle_connection(conn: Deno.Conn) {
             game.start();
           } else {
             console.log(`${msg.playerName} tried to join full Game ${msg.gameId}`);
+            conn.write(encodeMessage('GameIsFull'));
           }
         } else {
           console.log(`${msg.playerName} tried to join non-existent game (${msg.gameId})`);

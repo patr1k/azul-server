@@ -48,6 +48,16 @@ will be encoded as:
 
 ### Misc Notes
 
+**Tile Enum**
+
+| Tile Enum   | Tile Image     |
+| ----------- | -------------- |
+| R           | ![Red](https://github.com/patr1k/azul-server/blob/main/resources/tile_red.png?raw=true) |
+| B           | ![Blue](https://github.com/patr1k/azul-server/blob/main/resources/tile_blue.png?raw=true) |
+| Y           | ![Yellow](https://github.com/patr1k/azul-server/blob/main/resources/tile_yellow.png?raw=true) |
+| W           | ![White](https://github.com/patr1k/azul-server/blob/main/resources/tile_white.png?raw=true) |
+| K           | ![Black](https://github.com/patr1k/azul-server/blob/main/resources/tile_black.png?raw=true) |
+
 Factory 0 = Center Area
 
 Queue 0 = Tray

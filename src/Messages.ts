@@ -118,13 +118,7 @@ export type MessageOfType<T> =
     T extends 'Quit' ? QuitMessage :
     never;
 
-export function encodeMessage<T extends MessageType>(type: T, msg?: Partial<MessageOfType<T>>) {
-    if (typeof msg === 'undefined') {
-        return encoder.encode(JSON.stringify({'@': type}));
-    }
-
-    msg['@'] = type;
-    const jsonBytes = encoder.encode(JSON.stringify(msg));
+export function prependMsgSize(jsonBytes: Uint8Array): Uint8Array {
     const sizeBytes = new Uint8Array([jsonBytes.length & 0xff00, jsonBytes.length & 0xff]);
     const msgBytes = new Uint8Array(jsonBytes.length + 2);
     msgBytes.set(sizeBytes, 0);
@@ -132,22 +126,24 @@ export function encodeMessage<T extends MessageType>(type: T, msg?: Partial<Mess
     return msgBytes;
 }
 
+export function encodeMessage<T extends MessageType>(type: T, msg?: Partial<MessageOfType<T>>) {
+    if (typeof msg === 'undefined') {
+        return prependMsgSize(encoder.encode(JSON.stringify({'@': type})));
+    }
+
+    msg['@'] = type;
+    const jsonBytes = encoder.encode(JSON.stringify(msg));
+    return prependMsgSize(jsonBytes);
+}
+
 export function decodeMessage<T extends AzulMessage>(buf: Uint8Array): T {
     const inMsg = decoder.decode(buf).replace(/[\0\r\n]/g, '');
     try {
         return JSON.parse(inMsg);
-    } catch (e) {
+    } catch (_e) {
         console.log('Failed to parse JSON!', inMsg);
         Deno.exit();
     }
-}
-
-export function sleep(millis: number) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve({});
-        }, millis);
-    });
 }
 
 export type AzulMessage = CreateGameMessage

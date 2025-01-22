@@ -144,10 +144,10 @@ class Game {
 
     async sendToAllPlayers<T extends MessageType>(type: T, msg?: Partial<MessageOfType<T>>, exceptConn?: Deno.Conn) {
         const data = encodeMessage(type, msg);
-        for (const playerNum in this.players) {
-            if (this.players[playerNum].conn) {
-                if (exceptConn && this.players[playerNum].conn === exceptConn) continue;
-                await this.players[playerNum].conn.write(data);
+        for (const player of this.players) {
+            if (player.conn) {
+                if (exceptConn && player.conn === exceptConn) continue;
+                await player.conn.write(data);
             }
         }
     }
